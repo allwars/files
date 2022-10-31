@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>logoWork</title>
+  </head>
+
+  <body>
+    <form name="submit-form" >
+      <input name="cuando" type="date" id="fecha" value="" />
+      <br />
+      <textarea name="tarea" rows="10" cols="40" placeholder="Que tarea hecho hoy" required></textarea
+      >
+
+      <button type="submit">Enviar</button>
+    </form>
+    <script>
+      var fecha = new Date(); //Fecha actual
+      var mes = fecha.getMonth() + 1; //obteniendo mes
+      var dia = fecha.getDate(); //obteniendo dia
+      var year = fecha.getFullYear(); //obteniendo año
+      if (dia < 10) dia = "0" + dia; //agrega cero si el menor de 10
+      if (mes < 10) mes = "0" + mes; //agrega cero si el menor de 10
+      document.getElementById("fecha").value = year + "-" + mes + "-" + dia;
+    </script>
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbwWmcvpvjIL3Jp3uuNX726H_rv_b5Y15D47ydCVQ3Ehbes0_gD2pKKy2Ul-1pa5iNCt/exec";
+      const form = document.forms["submit-form"];
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, {
+          method: "POST",
+          body: new FormData(form),
+        })
+          .then((response) => console.log("Success!", response))
+          .catch((error) => console.error("Error!", error.message));
+          document.getElementById("fecha").value = "recibido!"
+          alert("Recibido!");
+          window.close();
+      });
+    </script>
+  </body>
+</html>

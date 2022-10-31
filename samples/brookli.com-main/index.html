@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up</title>
+    <link href="index.css" rel="stylesheet" />
+    <link href="page2.html" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Sign Up</h1>
+      <p>Please fill in this form to create an account.</p>
+
+      <div class="rating">
+        <form
+          action="https://sheetdb.io/api/v1/9jfrb8fst2uik"
+          method="post"
+          id="sheetdb-form"
+        >
+          <!--   <input type="submit" value="1" name="data[rating]" id="rating-1" /><label
+              class="form-label"
+              for="1"
+              >☆</label
+            >
+            <input type="submit" value="2" name="data[rating]" id="rating-2" /><label
+              class="form-label"
+              for="2"
+              >☆</label
+            >
+            <input type="submit" value="3" name="data[rating]" id="rating-3" /><label
+              class="form-label"
+              for="3"
+              >☆</label
+            >
+            <input type="submit" value="4" name="data[rating]" id="rating-4" /><label
+              class="form-label"
+              for="4"
+              id="rating4"
+              >☆</label
+            >
+            <input type="submit" value="5" name="data[rating]" id="rating-5" /><label
+              class="form-label"
+              for="5"
+              >☆</label
+            > -->
+
+          <label for="1"><b>☆</b></label>
+          <input
+            type="radio"
+            placeholder="Enter Email"
+            name="data[rating]"
+            required
+            value="1"
+            id="rating"
+          />
+          <label for="2"><b>☆</b></label>
+          <input
+            type="radio"
+            placeholder="Enter Email"
+            name="data[rating]"
+            required
+            value="2"
+            id="rating"
+          />
+          <label for="4"><b>☆</b></label>
+          <input
+            type="radio"
+            placeholder="Enter Email"
+            name="data[rating]"
+            required
+            value="3"
+            id="rating"
+          />
+          <label for="4"><b>☆</b></label>
+          <input
+            type="radio"
+            placeholder="Enter Email"
+            name="data[rating]"
+            required
+            value="4"
+            id="rating"
+          />
+          <label for="5"><b>☆</b></label>
+          <input
+            type="radio"
+            placeholder="Enter Email"
+            name="data[rating]"
+            required
+            value="5"
+            id="rating"
+          />
+
+          <div style="display:none;" id="urlWeb1"></div>
+          <div style="display:none;" id="date1"></div>
+
+          <!--         <label for="psw"><b>Password</b></label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="data[psw]"
+          required
+        />
+
+        <label for="psw repeat"><b>Repeat Password</b></label>
+        <input
+          type="password"
+          placeholder="Repeat Password"
+          name="data[repeat]"
+          required
+        />
+
+        <p>
+          By creating an account you agree to our
+          <a href="#" style="color: dodgerblue">Terms & Privacy</a>.
+        </p> -->
+
+          <!--     <div class="clearfix">
+          <button type="button" class="cancelbtn">Cancel</button>
+          <button type="submit" class="signupbtn">Sign Up</button>
+        </div> -->
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const url = "https://sheetdb.io/api/v1/9jfrb8fst2uik";
+      var destiny = window.location.href;
+      var date = new Date();
+
+      const formatDate = (date) => {
+        let formatted_date =  date.getDate() + "-"+ (date.getMonth() + 1) + "-" + date.getFullYear() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        return formatted_date;
+      };
+      const date2 =
+        '<input type="text" name="data[date]" value="' + formatDate(date) + '">';
+      const urlWeb =
+        '<input type="url" name="data[url]" value="' + destiny + '">';
+      console.log(formatDate(date));
+
+      //inputNon = document.getElementById('sheetdb-form');
+      //console.log(inputNon.innerHTML);
+
+      if (document.querySelector('input[name="data[rating]"]')) {
+        document
+          .querySelectorAll('input[name="data[rating]"]')
+          .forEach((elem) => {
+            elem.addEventListener("change", (e) => {
+              document.getElementById("date1").innerHTML = date2;
+              document.getElementById("urlWeb1").innerHTML = urlWeb;
+              var item = event.target.value + " / " + destiny;
+              //inputNon.innerHTML = '<input type="radio" name="data[url]"value="'+ url + '"id="rating" />'
+
+              e.preventDefault();
+
+              fetch(url, {
+                method: "POST",
+                body: new FormData(document.getElementById("sheetdb-form")),
+              })
+                .then((response) => response.json())
+
+                .then((html) => {
+                  // you can put any JS code here
+                  window.open("page2.html", "_self");
+                });
+            });
+          });
+      }
+
+      var form = document.getElementById("sheetdb-form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(form.action, {
+          method: "POST",
+          body: new FormData(document.getElementById("sheetdb-form")),
+        })
+          .then((response) => response.json())
+          //.then((html) => {
+            // you can put any JS code here
+            window.open("page2.html", "_parent");
+          //});
+      });
+    </script>
+  </body>
+</html>
